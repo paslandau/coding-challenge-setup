@@ -1,0 +1,49 @@
+version: '3.7'
+
+networks:
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+volumes:
+  mysql-volume:
+    name: coding-challenge-mysql
+    driver: ${VOLUMES_DRIVER}
+
+services:
+  workspace:
+    image: coding-challenge/workspace
+    build:
+      context: .
+      dockerfile: ./workspace/Dockerfile
+      args:
+        - APP_CODE_PATH=${APP_CODE_PATH_CONTAINER}
+        - APP_GROUP=${APP_GROUP}
+        - APP_GROUP_ID=${APP_GROUP_ID}
+        - APP_USER=${APP_USER}
+        - APP_USER_ID=${APP_USER_ID}
+        - TARGET_PHP_VERSION=${PHP_VERSION}
+        - TZ=${TIMEZONE}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+    ports:
+      - "${WORKSPACE_SSH_PORT_HOST}:22"
+    networks:
+      - backend
+
+  mysql:
+    image: coding-challenge/mysql
+    ports:
+      - "${MYSQL_PORT_HOST}:3306"
+    build:
+      context: .
+      dockerfile: ./mysql/Dockerfile
+      args:
+        - MYSQL_VERSION=${MYSQL_VERSION}
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - TZ=${TIMEZONE}
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    networks:
+      - backend
