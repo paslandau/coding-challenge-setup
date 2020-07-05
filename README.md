@@ -66,4 +66,5 @@ Done.
 ````
 
 The `verify` make target will also create a verification file in the root of this repository.
-Please make a new commit including this file and send a link to your repository to you recruiter. 
+
+Please add a new commit including the verification file, push it to your repository and send a link to the fork to the recruiter. 

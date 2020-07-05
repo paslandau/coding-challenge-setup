@@ -10,10 +10,10 @@ ARG TZ=UTC
 RUN /tmp/scripts/set_timezone.sh ${TZ}
 
 # add users
-ARG APP_USER=www-data
-ARG APP_GROUP=www-data
-ARG APP_USER_ID=1000
-ARG APP_GROUP_ID=1000
+ARG APP_USER
+ARG APP_GROUP
+ARG APP_USER_ID
+ARG APP_GROUP_ID
 
 RUN /tmp/scripts/create_user.sh ${APP_USER} ${APP_GROUP} ${APP_USER_ID} ${APP_GROUP_ID}
 
@@ -26,16 +26,8 @@ RUN apt-get update -yqq && apt-get install -yqq openssh-server \
  && mkdir /var/run/sshd \
 ;
 
-# add default public key to authorized_keys
-USER ${APP_USER}
-COPY ${SERVICE_DIR}/.ssh/insecure_id_rsa.pub /tmp/insecure_id_rsa.pub
-RUN mkdir -p ~/.ssh \
- && cat /tmp/insecure_id_rsa.pub >> ~/.ssh/authorized_keys \
- && chown -R ${APP_USER}: ~/.ssh \
- && chmod 700 ~/.ssh \
- && chmod 600 ~/.ssh/authorized_keys \
-;
-USER root
+ARG WORKSPACE_SSH_PASSWORD
+RUN echo "${APP_USER}:${WORKSPACE_SSH_PASSWORD}" | chpasswd
 
 # php config
 COPY ./.shared/config/php/conf.d/*  /usr/local/etc/php/conf.d/
