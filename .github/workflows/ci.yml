@@ -23,7 +23,7 @@ jobs:
         run: make docker-up
 
       - name: wait for mysql to become available
-        run: sleep 15
+        run: sleep 30
 
       - name: docker mysql logs
         run: docker logs coding-challenge_mysql_1

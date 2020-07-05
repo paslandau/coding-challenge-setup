@@ -31,36 +31,64 @@ make setup
 ```
 
 IDE integration with PhpStorm is described 
-[here](https://www.pascallandau.com/blog/setup-phpstorm-with-xdebug-on-docker/) for reference.
+[here](https://www.pascallandau.com/blog/setup-phpstorm-with-xdebug-on-docker/) for reference. Please note, that we're using password based authentication 
+instead of an (insecure) private key file. The password can be specified via `WORKSPACE_SSH_PASSWORD=123456` in the`.docker/.env` file _before_ building the containers.
+
+## BigQuery key file
+[BigQuery](https://cloud.google.com/bigquery/) is a central component in our infrastructure. 
+The [BigQuery SDK](https://packagist.org/packages/google/cloud-bigquery) is already included in the
+dependencies of this project, but you will need to create a service account with a corresponding 
+credential file and add it to this repository in order to complete the setup task. See the official 
+[authentication instructions](https://github.com/googleapis/google-cloud-php/blob/master/AUTHENTICATION.md) for more details.
+
+**Note**: We recommend the usage of a `.json` key file as described 
+[in this tutorial on Service Account based Authentication](https://www.progress.com/tutorials/odbc/a-complete-guide-for-google-bigquery-authentication#service-account-based-authentication)
+
+Please make sure to name the file `google-cloud-key.json` and put it in the root of the repository. It should look likes this:
+
+````
+{
+  "type": "service_account",
+  "project_id": "<your-project>",
+  "private_key_id": "3a88f2...66c18120",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBA...bMq+ktxb\n-----END PRIVATE KEY-----\n",
+  "client_email": "coding-challenge@<your-project>.iam.gserviceaccount.com",
+  "client_id": "1127...3003",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/coding-challenge%40<your-project>.iam.gserviceaccount.com"
+}
+````
+
+`google-cloud-key.json` is ignored via `.gitignore`.
 
 ## Task
-Please make sure you can successfully set up the infrastructure. You can "verfiy" the setup via
-`make verify` and should see the following output:
+Please "verfiy" the setup via `make verify`. You should see the following output:
 
 ````
 $ make verify
-..................... 21 / 21 (100%)
+vendor/bin/phpcs -p -n --standard=PSR12 app/ domain/
+.................... 20 / 20 (100%)
 
 
-Time: 710ms; Memory: 6MB
+Time: 522ms; Memory: 8MB
 
+vendor/bin/phpunit -c phpunit.xml
 PHPUnit 9.2.5 by Sebastian Bergmann and contributors.
 
 ...                                                                 3 / 3 (100%)
 
-Time: 00:00.574, Memory: 16.00 MB
+Time: 00:00.522, Memory: 20.00 MB
 
 OK (3 tests, 3 assertions)
 php artisan verify
-Verifying database connection...
-Connection successful! Found the following databases:
-coding_challenge
-information_schema
-mysql
-performance_schema
-sys
-testing
-
+Gathering PHP settings...
+Done.
+Verifying MySql database connection...
+Connection successful!
+Verifying BigQuery connection...
+Connection successful!
 Writing verification file...
 Done.
 ````
