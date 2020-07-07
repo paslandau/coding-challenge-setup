@@ -17,7 +17,7 @@ class VerifyCommand extends Command
     /**
      * @var string
      */
-    protected $description = 'Verifies that the application can run artisan commands';
+    protected $description = 'Verifies that the application is setup correctly';
 
     public function handle()
     {

@@ -10,14 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: docker init
-        run: make docker-init
-
-      - name: docker update user id and group
-        run: sed -i -e s/APP_USER_ID=.*/APP_USER_ID=$UID/g .docker/.env && sed -i -e s/APP_GROUP_ID=.*/APP_GROUP_ID=$(id -g)/g .docker/.env && cat .docker/.env
-
-      - name: build docker containers
-        run: make docker-build
+      - name: docker setup
+        run: make docker-setup
 
       - name: docker up
         run: make docker-up
@@ -25,14 +19,14 @@ jobs:
       - name: wait for mysql to become available
         run: sleep 30
 
-      - name: docker mysql logs
+      - name: (debug) docker mysql logs
         run: docker logs coding-challenge_mysql_1
 
-      - name: docker mysql schema info
+      - name: (debug) docker mysql schema info
         run: docker exec coding-challenge_mysql_1 mysql -u root -proot -e "SHOW databases;" -h 127.0.0.1
 
       - name: application setup
-        run: make init && make setup
+        run: make setup
 
       - name: code style
         run: make phpcs

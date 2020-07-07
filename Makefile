@@ -39,6 +39,9 @@ help:
 ##@ [Docker] Build / Infrastructure
 .docker/.env:
 	cp $(DOCKER_COMPOSE_DIR)/.env.example $(DOCKER_COMPOSE_DIR)/.env
+	sed -i s/APP_USER_ID=.*/APP_USER_ID=$$UID/g $(DOCKER_COMPOSE_DIR)/.env
+	sed -i s/APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/g $(DOCKER_COMPOSE_DIR)/.env
+	sed -i s/WORKSPACE_SSH_PASSWORD=.*/WORKSPACE_SSH_PASSWORD=$$RANDOM$$RANDOM/g $(DOCKER_COMPOSE_DIR)/.env
 
 .PHONY: docker-clean
 docker-clean: ## Remove the .env file for docker

@@ -18,12 +18,13 @@
 
 CREATE DATABASE IF NOT EXISTS `testing` COLLATE 'utf8_general_ci' ;
 
-CREATE TABLE `products` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `in_stock` tinyint(1) DEFAULT NULL,
-  `price` decimal(7,2) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `sessions` (
+  `id` int(11) unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `started_at` DATETIME NULL,
+  `day` VARCHAR(8) NULL,
+  `domain` VARCHAR(45) NULL,
+  `traffic_channel` VARCHAR(45) NULL,
+  `total_hits` INT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 FLUSH PRIVILEGES ;

@@ -14,6 +14,8 @@ and can be set up via `make` commands:
 
 ```
 make docker-setup
+
+make docker-up
 ```
 
 Please verify that docker is running successfully via `docker ps`
@@ -32,19 +34,21 @@ make setup
 
 IDE integration with PhpStorm is described 
 [here](https://www.pascallandau.com/blog/setup-phpstorm-with-xdebug-on-docker/) for reference. Please note, that we're using password based authentication 
-instead of an (insecure) private key file. The password can be specified via `WORKSPACE_SSH_PASSWORD=123456` in the`.docker/.env` file _before_ building the containers.
+instead of an (insecure) private key file. The password is generated randomly and can be found at `.docker/.env` in the variable `WORKSPACE_SSH_PASSWORD`.
 
 ## BigQuery key file
 [BigQuery](https://cloud.google.com/bigquery/) is a central component in our infrastructure. 
 The [BigQuery SDK](https://packagist.org/packages/google/cloud-bigquery) is already included in the
 dependencies of this project, but you will need to create a service account with a corresponding 
-credential file and add it to this repository in order to complete the setup task. See the official 
-[authentication instructions](https://github.com/googleapis/google-cloud-php/blob/master/AUTHENTICATION.md) for more details.
+credential file and add it to this repository in order to complete the setup task.
 
 **Note**: We recommend the usage of a `.json` key file as described 
-[in this tutorial on Service Account based Authentication](https://www.progress.com/tutorials/odbc/a-complete-guide-for-google-bigquery-authentication#service-account-based-authentication)
+[in this step by step tutorial on Service Account based Authentication](https://www.progress.com/tutorials/odbc/a-complete-guide-for-google-bigquery-authentication#service-account-based-authentication).
+See the official [authentication instructions](https://github.com/googleapis/google-cloud-php/blob/master/AUTHENTICATION.md) for more details.
 
-Please make sure to name the file `google-cloud-key.json` and put it in the root of the repository. It should look likes this:
+Please make sure to name the file `google-cloud-key.json` (ignored via `.gitignore`) and put it in the root of the repository. 
+It should look like this:
+
 
 ````
 {
@@ -60,8 +64,6 @@ Please make sure to name the file `google-cloud-key.json` and put it in the root
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/coding-challenge%40<your-project>.iam.gserviceaccount.com"
 }
 ````
-
-`google-cloud-key.json` is ignored via `.gitignore`.
 
 ## Task
 Please "verfiy" the setup via `make verify`. You should see the following output:
