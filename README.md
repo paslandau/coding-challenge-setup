@@ -1,11 +1,66 @@
 # Coding Challenge Setup
-## Forking 
-Please fork this repository and activate Github Actions in the "Actions" tab in your fork 
-to make use of the built-in CI capabilities:
+## Forking (public)
+**Note**: Please see **Mirroring (private)** if you do not want this repo to show up publicly on your Github profile. 
+
+When forking this repository, you need to explicitly activate Github Actions in the 
+"Actions" tab of your fork to make use of the built-in CI capabilities, as
 
 > Workflows don't run on forked repositories by default. You must enable GitHub Actions in the Actions tab of the forked repository.
 
 Source: [GitHub Docs](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-events-for-forked-repositories)
+
+## Mirroring (private)
+Unfortunately, Github does not allow making forks of a public repository private. Instead, they recommend mirroring the repository
+as documented [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository).
+
+The steps for this repository are:
+- [create a new private repository](https://help.github.com/articles/creating-a-new-repository/) named `coding-challenge-setup`
+- clone this repository
+  ````
+  git clone --bare https://github.com/paslandau/coding-challenge-setup.git
+  ````
+- mirror-push the repository
+  ````
+  cd coding-challenge-setup.git
+  git push --mirror git@github.com:<username>/coding-challenge-setup.git
+  ````
+- delete the local copy of this repository
+  ````
+  cd ..
+  rm -rf coding-challenge-setup.git
+  ````
+  
+You can now simply clone "your own" repository.
+
+## Preconditions
+### docker and docker-compose
+- Windows
+  - [Download](https://hub.docker.com/editions/community/docker-ce-desktop-windows/)
+  - [Tutorial](https://www.pascallandau.com/blog/php-php-fpm-and-nginx-on-docker-in-windows-10/)
+- Linux:
+  - [Setup docker](https://devconnected.com/how-to-install-docker-on-ubuntu-18-04-debian-10/)
+  - [Setup docker-compose](https://docs.docker.com/compose/install/#install-compose-on-linux-systems)
+- Mac: 
+  - [Download](https://docs.docker.com/docker-for-mac/install/)
+
+### make
+Check upfront if already installed via:
+````
+$ make --version
+GNU Make 4.2.1
+````
+
+- Windows
+  - [Setup instructions for MinGW](https://www.pascallandau.com/blog/structuring-the-docker-setup-for-php-projects/#install-make-on-windows-mingw)
+- Linux:
+  ````
+  sudo apt-get install make
+  ````
+- Mac:
+  ````
+  brew install make
+  ````
+
 
 ## Setup
 A docker setup is provided in the `.docker` folder following the structure defined 
@@ -97,4 +152,10 @@ Done.
 
 The `verify` make target will also create a verification file in the root of this repository.
 
-Please add a new commit including the verification file, push it to your repository and send a link to the fork to the recruiter. 
+Please 
+- add a new commit including the verification file
+- push it to your repository and 
+- send a link to your repository to the recruiter.
+
+**Note**: If you created a private repository, please add the user [paslandau](https://github.com/paslandau) as a 
+[collaborator](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository).
