@@ -128,12 +128,17 @@ Time: 00:00.522, Memory: 20.00 MB
 OK (3 tests, 3 assertions)
 php artisan verify
 Gathering PHP settings...
-Done.
+[OK]
+
 Verifying MySql database connection...
-Connection successful!
+[OK]
+
 Verifying BigQuery connection...
-Connection successful!
+[OK]
+
 Writing verification file...
+[OK]
+
 Done.
 ````
 

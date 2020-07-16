@@ -32,7 +32,7 @@ class VerifyCommand extends Command
         $verificationData[] = "==========";
         $verificationData[] = `php -i`;
         $verificationData[] = "";
-        $this->info("Done.");
+        $this->info("[OK]\n");
 
         $this->info("Verifying MySql database connection...");
         $result = [
@@ -74,6 +74,7 @@ class VerifyCommand extends Command
 
         $this->info("Writing verification file...");
         file_put_contents(base_path("verification"), implode("\n", $verificationData));
+        $this->info("[OK]\n");
         $this->info("Done.");
     }
 }
