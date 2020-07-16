@@ -34,14 +34,9 @@ You can now simply clone "your own" repository.
 
 ## Preconditions
 ### docker and docker-compose
-- Windows
-  - [Download](https://hub.docker.com/editions/community/docker-ce-desktop-windows/)
-  - [Tutorial](https://www.pascallandau.com/blog/php-php-fpm-and-nginx-on-docker-in-windows-10/)
-- Linux:
-  - [Setup docker](https://devconnected.com/how-to-install-docker-on-ubuntu-18-04-debian-10/)
-  - [Setup docker-compose](https://docs.docker.com/compose/install/#install-compose-on-linux-systems)
-- Mac: 
-  - [Download](https://docs.docker.com/docker-for-mac/install/)
+- Windows: [Download](https://hub.docker.com/editions/community/docker-ce-desktop-windows/), [Tutorial](https://www.pascallandau.com/blog/php-php-fpm-and-nginx-on-docker-in-windows-10/)
+- Linux: [Setup docker](https://devconnected.com/how-to-install-docker-on-ubuntu-18-04-debian-10/), [Setup docker-compose](https://docs.docker.com/compose/install/#install-compose-on-linux-systems)
+- Mac: [Download](https://docs.docker.com/docker-for-mac/install/)
 
 ### make
 Check upfront if already installed via:
@@ -50,17 +45,9 @@ $ make --version
 GNU Make 4.2.1
 ````
 
-- Windows
-  - [Setup instructions for MinGW](https://www.pascallandau.com/blog/structuring-the-docker-setup-for-php-projects/#install-make-on-windows-mingw)
-- Linux:
-  ````
-  sudo apt-get install make
-  ````
-- Mac:
-  ````
-  brew install make
-  ````
-
+- Windows: [Setup instructions for MinGW](https://www.pascallandau.com/blog/structuring-the-docker-setup-for-php-projects/#install-make-on-windows-mingw)
+- Linux: `sudo apt-get install make`
+- Mac: `brew install make`
 
 ## Setup
 A docker setup is provided in the `.docker` folder following the structure defined 
@@ -91,7 +78,7 @@ IDE integration with PhpStorm is described
 [here](https://www.pascallandau.com/blog/setup-phpstorm-with-xdebug-on-docker/) for reference. Please note, that we're using password based authentication 
 instead of an (insecure) private key file. The password is generated randomly and can be found at `.docker/.env` in the variable `WORKSPACE_SSH_PASSWORD`.
 
-## BigQuery key file
+## Create BigQuery key file
 [BigQuery](https://cloud.google.com/bigquery/) is a central component in our infrastructure. 
 The [BigQuery SDK](https://packagist.org/packages/google/cloud-bigquery) is already included in the
 dependencies of this project, but you will need to create a service account with a corresponding 
@@ -155,7 +142,7 @@ The `verify` make target will also create a verification file in the root of thi
 Please 
 - add a new commit including the verification file
 - push it to your repository and 
-- send a link to your repository to the recruiter.
+- send us a link to your repository
 
 **Note**: If you created a private repository, please add the user [paslandau](https://github.com/paslandau) as a 
 [collaborator](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository).

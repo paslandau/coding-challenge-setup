@@ -41,9 +41,9 @@ class VerifyCommand extends Command
         try {
             $pdo    = new PDO('mysql:dbname=coding_challenge;host=mysql;port=3306', 'root', 'root');
             $result = $pdo->query("SHOW DATABASES;")->fetchAll();
-            $this->info("Connection successful!");
+            $this->info("[OK]\n");
         } catch (\Throwable $t) {
-            $this->error("Connection failed: " . $t->getMessage());
+            $this->error("[ERROR] Connection failed: " . $t->getMessage() . "\n");
         }
 
         $verificationData[] = "MySql databases:";
@@ -62,9 +62,9 @@ class VerifyCommand extends Command
             $query  = $client->query("SELECT COUNT(*) as row_count FROM bigquery-public-data.google_analytics_sample.ga_sessions_20170801");
             $result = $client->runQuery($query);
             $result = iterator_to_array($result->getIterator());
-            $this->info("Connection successful!");
+            $this->info("[OK]\n");
         } catch (\Throwable $t) {
-            $this->error("Connection failed: " . $t->getMessage());
+            $this->error("[ERROR] Connection failed: " . $t->getMessage() . "\n");
         }
 
         $verificationData[] = "BigQuery query result:";
