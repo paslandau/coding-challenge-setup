@@ -1,12 +1,13 @@
-2021-04-29T09:51:40+00:00
+2021-04-29T10:07:13+00:00
 
 PHP settings:
 ==========
 phpinfo()
-PHP Version => 7.4.16
+PHP Version => 8.0.3
 
-System => Linux e0879c05250f 5.10.25-linuxkit #1 SMP Tue Mar 23 09:27:39 UTC 2021 x86_64
-Build Date => Apr 10 2021 13:36:15
+System => Linux 277bb8d9a629 5.10.25-linuxkit #1 SMP Tue Mar 23 09:27:39 UTC 2021 x86_64
+Build Date => Apr 10 2021 13:08:46
+Build System => Linux 0f2c5bceee05 4.19.0-14-cloud-amd64 #1 SMP Debian 4.19.171-2 (2021-01-30) x86_64 GNU/Linux
 Configure Command =>  './configure'  '--build=x86_64-linux-gnu' '--with-config-file-path=/usr/local/etc/php' '--with-config-file-scan-dir=/usr/local/etc/php/conf.d' '--enable-option-checking=fatal' '--with-mhash' '--with-pic' '--enable-ftp' '--enable-mbstring' '--enable-mysqlnd' '--with-password-argon2' '--with-sodium=shared' '--with-pdo-sqlite=/usr' '--with-sqlite3=/usr' '--with-curl' '--with-libedit' '--with-openssl' '--with-zlib' '--with-pear' '--with-libdir=lib/x86_64-linux-gnu' '--enable-embed' 'build_alias=x86_64-linux-gnu'
 Server API => Command Line Interface
 Virtual Directory Support => disabled
@@ -18,11 +19,11 @@ Additional .ini files parsed => /usr/local/etc/php/conf.d/docker-php-ext-pdo_mys
 /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini,
 /usr/local/etc/php/conf.d/zz-app.ini
 
-PHP API => 20190902
-PHP Extension => 20190902
-Zend Extension => 320190902
-Zend Extension Build => API320190902,NTS
-PHP Extension Build => API20190902,NTS
+PHP API => 20200930
+PHP Extension => 20200930
+Zend Extension => 420200930
+Zend Extension Build => API420200930,NTS
+PHP Extension Build => API20200930,NTS
 Debug Build => no
 Thread Safety => disabled
 Zend Signal Handling => enabled
@@ -33,10 +34,10 @@ DTrace Support => disabled
 
 Registered PHP Streams => https, ftps, compress.zlib, php, file, glob, data, http, ftp, phar
 Registered Stream Socket Transports => tcp, udp, unix, udg, ssl, tls, tlsv1.0, tlsv1.1, tlsv1.2, tlsv1.3
-Registered Stream Filters => zlib.*, convert.iconv.*, string.rot13, string.toupper, string.tolower, string.strip_tags, convert.*, consumed, dechunk
+Registered Stream Filters => zlib.*, convert.iconv.*, string.rot13, string.toupper, string.tolower, convert.*, consumed, dechunk
 
 This program makes use of the Zend Scripting Language Engine:
-Zend Engine v3.4.0, Copyright (c) Zend Technologies
+Zend Engine v4.0.3, Copyright (c) Zend Technologies
     with Xdebug v3.0.4, Copyright (c) 2002-2021, by Derick Rethans
 
 
@@ -47,7 +48,7 @@ Configuration
 
 Core
 
-PHP Version => 7.4.16
+PHP Version => 8.0.3
 
 Directive => Local Value => Master Value
 allow_url_fopen => On => On
@@ -63,7 +64,7 @@ default_mimetype => text/html => text/html
 disable_classes => no value => no value
 disable_functions => no value => no value
 display_errors => STDOUT => STDOUT
-display_startup_errors => Off => Off
+display_startup_errors => On => On
 doc_root => no value => no value
 docref_ext => no value => no value
 docref_root => no value => no value
@@ -74,7 +75,7 @@ error_log => no value => no value
 error_prepend_string => no value => no value
 error_reporting => no value => no value
 expose_php => On => On
-extension_dir => /usr/local/lib/php/extensions/no-debug-non-zts-20190902 => /usr/local/lib/php/extensions/no-debug-non-zts-20190902
+extension_dir => /usr/local/lib/php/extensions/no-debug-non-zts-20200930 => /usr/local/lib/php/extensions/no-debug-non-zts-20200930
 file_uploads => On => On
 hard_timeout => 2 => 2
 highlight.comment => <font style="color: #FF8000">#FF8000</font> => <font style="color: #FF8000">#FF8000</font>
@@ -123,7 +124,6 @@ sys_temp_dir => no value => no value
 syslog.facility => LOG_USER => LOG_USER
 syslog.filter => no-ctrl => no-ctrl
 syslog.ident => php => php
-track_errors => Off => Off
 unserialize_callback_func => no value => no value
 upload_max_filesize => 2M => 2M
 upload_tmp_dir => no value => no value
@@ -137,6 +137,7 @@ zend.assertions => 1 => 1
 zend.detect_unicode => On => On
 zend.enable_gc => On => On
 zend.exception_ignore_args => Off => Off
+zend.exception_string_param_max_len => 15 => 15
 zend.multibyte => Off => Off
 zend.script_encoding => no value => no value
 zend.signal_check => Off => Off
@@ -186,7 +187,7 @@ curl.cainfo => no value => no value
 date
 
 date/time support => enabled
-timelib version => 2018.04
+timelib version => 2020.02
 "Olson" Timezone Database Version => 2021.1
 Timezone Database => internal
 Default timezone => UTC
@@ -194,8 +195,8 @@ Default timezone => UTC
 Directive => Local Value => Master Value
 date.default_latitude => 31.7667 => 31.7667
 date.default_longitude => 35.2333 => 35.2333
-date.sunrise_zenith => 90.583333 => 90.583333
-date.sunset_zenith => 90.583333 => 90.583333
+date.sunrise_zenith => 90.833333 => 90.833333
+date.sunset_zenith => 90.833333 => 90.833333
 date.timezone => no value => no value
 
 dom
@@ -212,7 +213,7 @@ RelaxNG Support => enabled
 fileinfo
 
 fileinfo support => enabled
-libmagic => 537
+libmagic => 539
 
 filter
 
@@ -272,7 +273,6 @@ Multibyte regex (oniguruma) version => 6.9.1
 Directive => Local Value => Master Value
 mbstring.detect_order => no value => no value
 mbstring.encoding_translation => Off => Off
-mbstring.func_overload => 0 => 0
 mbstring.http_input => no value => no value
 mbstring.http_output => no value => no value
 mbstring.http_output_conv_mimetypes => ^(text/|application/xhtml\+xml) => ^(text/|application/xhtml\+xml)
@@ -286,7 +286,7 @@ mbstring.substitute_character => no value => no value
 mysqlnd
 
 mysqlnd => enabled
-Version => mysqlnd 7.4.16
+Version => mysqlnd 8.0.3
 Compression => supported
 core SSL => supported
 extended SSL => supported
@@ -331,7 +331,7 @@ PDO drivers => sqlite, mysql
 pdo_mysql
 
 PDO Driver for MySQL => enabled
-Client API version => mysqlnd 7.4.16
+Client API version => mysqlnd 8.0.3
 
 Directive => Local Value => Master Value
 pdo_mysql.default_socket => no value => no value
@@ -439,7 +439,7 @@ SQLite3 support => enabled
 SQLite Library => 3.27.2
 
 Directive => Local Value => Master Value
-sqlite3.defensive => 1 => 1
+sqlite3.defensive => On => On
 sqlite3.extension_dir => no value => no value
 
 standard
@@ -448,13 +448,12 @@ Dynamic Library Support => enabled
 Path to sendmail => /usr/sbin/sendmail -t -i
 
 Directive => Local Value => Master Value
-assert.active => 1 => 1
-assert.bail => 0 => 0
+assert.active => On => On
+assert.bail => Off => Off
 assert.callback => no value => no value
-assert.exception => 0 => 0
-assert.quiet_eval => 0 => 0
-assert.warning => 1 => 1
-auto_detect_line_endings => 0 => 0
+assert.exception => On => On
+assert.warning => On => On
+auto_detect_line_endings => Off => Off
 default_socket_timeout => 60 => 60
 from => no value => no value
 session.trans_sid_hosts => no value => no value
@@ -604,36 +603,44 @@ Variable => Value
 PHP_EXTRA_CONFIGURE_ARGS => --enable-embed
 DB_CONNECTION => mysql
 APP_DEBUG => true
-HOSTNAME => e0879c05250f
+HOSTNAME => 277bb8d9a629
 PHP_INI_DIR => /usr/local/etc/php
 APP_URL =>  
 DB_PORT => 3306
+SHLVL => 1
 HOME => /home/www-data
 BROADCAST_DRIVER => log
 PHP_LDFLAGS => -Wl,-O1 -pie
 DB_DATABASE => coding_challenge
+MAKEFLAGS => r --warn-undefined-variables
 PHP_CFLAGS => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 APP_NAME => Coding Challenge
-PHP_VERSION => 7.4.16
+PHP_VERSION => 8.0.3
+MAKE_TERMERR => /dev/pts/0
 SESSION_DRIVER => file
-GPG_KEYS => 42670A7FE4D0441C8E4632349E4FDC074A4EF02D 5A52880781F755608BF815FC910DEB46F53EA312
+GPG_KEYS => 1729F83938DA44E27BA0F4D3DBDB397470D12172 BFDDD28642824F8118EF77909B67A5C12229118F
 LOG_CHANNEL => stack
 DB_USERNAME => root
 SHELL_VERBOSITY => 0
+PHP_ASC_URL => https://www.php.net/distributions/php-8.0.3.tar.xz.asc
 PHP_CPPFLAGS => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
-PHP_ASC_URL => https://www.php.net/distributions/php-7.4.16.tar.xz.asc
-PHP_URL => https://www.php.net/distributions/php-7.4.16.tar.xz
+_ => /usr/local/bin/php
+PHP_URL => https://www.php.net/distributions/php-8.0.3.tar.xz
 CACHE_DRIVER => file
-COLUMNS => 80
+TERM => xterm
+COLUMNS => 211
 PATH => /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAKELEVEL => 1
 SESSION_LIFETIME => 120
+MAKE_TERMOUT => /dev/pts/0
+PWD => /var/www/current
 PHPIZE_DEPS => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
 APP_ENV => local
 APP_KEY => base64:Zan6/VI+GT2YsxHwvUJn0Jxy5XdHQbcRR1klDl03wUw=
 DB_PASSWORD => root
-PWD => /var/www/current
-PHP_SHA256 => 1c16cefaf88ded4c92eed6a8a41eb682bb2ef42429deb55f1c4ba159053fb98b
-LINES => 50
+PHP_SHA256 => c9816aa9745a9695672951eaff3a35ca5eddcb9cacf87a4f04b9fb1169010251
+LINES => 66
+MFLAGS => -r --warn-undefined-variables
 DB_HOST => mysql
 QUEUE_CONNECTION => sync
 
@@ -643,36 +650,44 @@ Variable => Value
 $_SERVER['PHP_EXTRA_CONFIGURE_ARGS'] => --enable-embed
 $_SERVER['DB_CONNECTION'] => mysql
 $_SERVER['APP_DEBUG'] => true
-$_SERVER['HOSTNAME'] => e0879c05250f
+$_SERVER['HOSTNAME'] => 277bb8d9a629
 $_SERVER['PHP_INI_DIR'] => /usr/local/etc/php
 $_SERVER['APP_URL'] => 
 $_SERVER['DB_PORT'] => 3306
+$_SERVER['SHLVL'] => 1
 $_SERVER['HOME'] => /home/www-data
 $_SERVER['BROADCAST_DRIVER'] => log
 $_SERVER['PHP_LDFLAGS'] => -Wl,-O1 -pie
 $_SERVER['DB_DATABASE'] => coding_challenge
+$_SERVER['MAKEFLAGS'] => r --warn-undefined-variables
 $_SERVER['PHP_CFLAGS'] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 $_SERVER['APP_NAME'] => Coding Challenge
-$_SERVER['PHP_VERSION'] => 7.4.16
+$_SERVER['PHP_VERSION'] => 8.0.3
+$_SERVER['MAKE_TERMERR'] => /dev/pts/0
 $_SERVER['SESSION_DRIVER'] => file
-$_SERVER['GPG_KEYS'] => 42670A7FE4D0441C8E4632349E4FDC074A4EF02D 5A52880781F755608BF815FC910DEB46F53EA312
+$_SERVER['GPG_KEYS'] => 1729F83938DA44E27BA0F4D3DBDB397470D12172 BFDDD28642824F8118EF77909B67A5C12229118F
 $_SERVER['LOG_CHANNEL'] => stack
 $_SERVER['DB_USERNAME'] => root
 $_SERVER['SHELL_VERBOSITY'] => 0
+$_SERVER['PHP_ASC_URL'] => https://www.php.net/distributions/php-8.0.3.tar.xz.asc
 $_SERVER['PHP_CPPFLAGS'] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
-$_SERVER['PHP_ASC_URL'] => https://www.php.net/distributions/php-7.4.16.tar.xz.asc
-$_SERVER['PHP_URL'] => https://www.php.net/distributions/php-7.4.16.tar.xz
+$_SERVER['_'] => /usr/local/bin/php
+$_SERVER['PHP_URL'] => https://www.php.net/distributions/php-8.0.3.tar.xz
 $_SERVER['CACHE_DRIVER'] => file
-$_SERVER['COLUMNS'] => 80
+$_SERVER['TERM'] => xterm
+$_SERVER['COLUMNS'] => 211
 $_SERVER['PATH'] => /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+$_SERVER['MAKELEVEL'] => 1
 $_SERVER['SESSION_LIFETIME'] => 120
+$_SERVER['MAKE_TERMOUT'] => /dev/pts/0
+$_SERVER['PWD'] => /var/www/current
 $_SERVER['PHPIZE_DEPS'] => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
 $_SERVER['APP_ENV'] => local
 $_SERVER['APP_KEY'] => base64:Zan6/VI+GT2YsxHwvUJn0Jxy5XdHQbcRR1klDl03wUw=
 $_SERVER['DB_PASSWORD'] => root
-$_SERVER['PWD'] => /var/www/current
-$_SERVER['PHP_SHA256'] => 1c16cefaf88ded4c92eed6a8a41eb682bb2ef42429deb55f1c4ba159053fb98b
-$_SERVER['LINES'] => 50
+$_SERVER['PHP_SHA256'] => c9816aa9745a9695672951eaff3a35ca5eddcb9cacf87a4f04b9fb1169010251
+$_SERVER['LINES'] => 66
+$_SERVER['MFLAGS'] => -r --warn-undefined-variables
 $_SERVER['DB_HOST'] => mysql
 $_SERVER['QUEUE_CONNECTION'] => sync
 $_SERVER['PHP_SELF'] => 
@@ -680,8 +695,8 @@ $_SERVER['SCRIPT_NAME'] =>
 $_SERVER['SCRIPT_FILENAME'] => 
 $_SERVER['PATH_TRANSLATED'] => 
 $_SERVER['DOCUMENT_ROOT'] => 
-$_SERVER['REQUEST_TIME_FLOAT'] => 1619689901.0145
-$_SERVER['REQUEST_TIME'] => 1619689901
+$_SERVER['REQUEST_TIME_FLOAT'] => 1619690833.4656
+$_SERVER['REQUEST_TIME'] => 1619690833
 $_SERVER['argv'] => Array
 (
 )
@@ -690,36 +705,44 @@ $_SERVER['argc'] => 0
 $_ENV['PHP_EXTRA_CONFIGURE_ARGS'] => --enable-embed
 $_ENV['DB_CONNECTION'] => mysql
 $_ENV['APP_DEBUG'] => true
-$_ENV['HOSTNAME'] => e0879c05250f
+$_ENV['HOSTNAME'] => 277bb8d9a629
 $_ENV['PHP_INI_DIR'] => /usr/local/etc/php
 $_ENV['APP_URL'] => 
 $_ENV['DB_PORT'] => 3306
+$_ENV['SHLVL'] => 1
 $_ENV['HOME'] => /home/www-data
 $_ENV['BROADCAST_DRIVER'] => log
 $_ENV['PHP_LDFLAGS'] => -Wl,-O1 -pie
 $_ENV['DB_DATABASE'] => coding_challenge
+$_ENV['MAKEFLAGS'] => r --warn-undefined-variables
 $_ENV['PHP_CFLAGS'] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
 $_ENV['APP_NAME'] => Coding Challenge
-$_ENV['PHP_VERSION'] => 7.4.16
+$_ENV['PHP_VERSION'] => 8.0.3
+$_ENV['MAKE_TERMERR'] => /dev/pts/0
 $_ENV['SESSION_DRIVER'] => file
-$_ENV['GPG_KEYS'] => 42670A7FE4D0441C8E4632349E4FDC074A4EF02D 5A52880781F755608BF815FC910DEB46F53EA312
+$_ENV['GPG_KEYS'] => 1729F83938DA44E27BA0F4D3DBDB397470D12172 BFDDD28642824F8118EF77909B67A5C12229118F
 $_ENV['LOG_CHANNEL'] => stack
 $_ENV['DB_USERNAME'] => root
 $_ENV['SHELL_VERBOSITY'] => 0
+$_ENV['PHP_ASC_URL'] => https://www.php.net/distributions/php-8.0.3.tar.xz.asc
 $_ENV['PHP_CPPFLAGS'] => -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64
-$_ENV['PHP_ASC_URL'] => https://www.php.net/distributions/php-7.4.16.tar.xz.asc
-$_ENV['PHP_URL'] => https://www.php.net/distributions/php-7.4.16.tar.xz
+$_ENV['_'] => /usr/local/bin/php
+$_ENV['PHP_URL'] => https://www.php.net/distributions/php-8.0.3.tar.xz
 $_ENV['CACHE_DRIVER'] => file
-$_ENV['COLUMNS'] => 80
+$_ENV['TERM'] => xterm
+$_ENV['COLUMNS'] => 211
 $_ENV['PATH'] => /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+$_ENV['MAKELEVEL'] => 1
 $_ENV['SESSION_LIFETIME'] => 120
+$_ENV['MAKE_TERMOUT'] => /dev/pts/0
+$_ENV['PWD'] => /var/www/current
 $_ENV['PHPIZE_DEPS'] => autoconf 		dpkg-dev 		file 		g++ 		gcc 		libc-dev 		make 		pkg-config 		re2c
 $_ENV['APP_ENV'] => local
 $_ENV['APP_KEY'] => base64:Zan6/VI+GT2YsxHwvUJn0Jxy5XdHQbcRR1klDl03wUw=
 $_ENV['DB_PASSWORD'] => root
-$_ENV['PWD'] => /var/www/current
-$_ENV['PHP_SHA256'] => 1c16cefaf88ded4c92eed6a8a41eb682bb2ef42429deb55f1c4ba159053fb98b
-$_ENV['LINES'] => 50
+$_ENV['PHP_SHA256'] => c9816aa9745a9695672951eaff3a35ca5eddcb9cacf87a4f04b9fb1169010251
+$_ENV['LINES'] => 66
+$_ENV['MFLAGS'] => -r --warn-undefined-variables
 $_ENV['DB_HOST'] => mysql
 $_ENV['QUEUE_CONNECTION'] => sync
 
