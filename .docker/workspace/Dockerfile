@@ -34,9 +34,6 @@ COPY ./.shared/config/php/conf.d/*  /usr/local/etc/php/conf.d/
 
 # install composer
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-USER ${APP_USER}
-RUN composer global require hirak/prestissimo
-USER root
 
 # workdir
 ARG APP_CODE_PATH

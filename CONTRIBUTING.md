@@ -124,9 +124,9 @@ baz. Needed to decouple them to create
 better understanding of thing.
 
 Resolves:
-MT-1444
+GH-1
 
 Related:
-MT-1445
-MT-1337
+GH-2
+GH-3
 ````

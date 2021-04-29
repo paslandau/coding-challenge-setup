@@ -33,6 +33,7 @@ services:
 
   mysql:
     image: coding-challenge/mysql
+    platform: linux/amd64
     ports:
       - "${MYSQL_PORT_HOST}:3306"
     build:
