@@ -15,6 +15,10 @@ RUN_IN_DOCKER_USER=www-data
 RUN_IN_DOCKER_CONTAINER=workspace
 
 ifndef CONTAINER
+	ARGS :=
+endif
+
+ifndef CONTAINER
 	CONTAINER :=
 endif
 

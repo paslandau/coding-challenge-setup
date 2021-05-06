@@ -30,6 +30,8 @@ services:
       - "${WORKSPACE_SSH_PORT_HOST}:22"
     networks:
       - backend
+    environment:
+      - PHP_IDE_CONFIG=serverName=challenge
 
   mysql:
     image: coding-challenge/mysql
