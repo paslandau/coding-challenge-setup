@@ -5,15 +5,19 @@ ARG SERVICE_DIR="./workspace"
 COPY ./.shared/scripts/ /tmp/scripts/
 RUN chmod +x -R /tmp/scripts/
 
-# set timezone
-ARG TZ=UTC
-RUN /tmp/scripts/set_timezone.sh ${TZ}
-
 # add users
 ARG APP_USER
 ARG APP_GROUP
 ARG APP_USER_ID
 ARG APP_GROUP_ID
+
+RUN apt-get update -yqq && apt-get install -yqq \
+    bash \
+;
+
+# use bash for building the docker image
+# @see https://github.com/moby/moby/issues/7281#issuecomment-389440503
+SHELL ["/bin/bash", "-c"]
 
 RUN /tmp/scripts/create_user.sh ${APP_USER} ${APP_GROUP} ${APP_USER_ID} ${APP_GROUP_ID}
 

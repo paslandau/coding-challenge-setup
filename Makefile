@@ -1,16 +1,32 @@
-# see https://tech.davis-hansson.com/p/make/
-SHELL := bash
-.ONESHELL:
-# pipefail makes sure that a series of commands is treated
-# as one command, i.e. if one fails, the whole series is marked as failed
-.SHELLFLAGS := -u -o pipefail -c
+# @see https://tech.davis-hansson.com/p/make/
+# define the default shell
+OS?=undefined
+SED_FIX=
+ifeq ($(OS),Windows_NT)
+	# Windows requires the .exe extension, otherwise the entry is ignored
+	# @see https://stackoverflow.com/a/60318554/413531
+    SHELL := bash.exe
+else
+    SHELL := bash
+    # @see https://stackoverflow.com/a/19457213/413531
+    ifeq ($(shell sh -c 'uname 2>/dev/null || echo Unknown'),Darwin)
+    	SED_FIX='' -e
+    endif
+endif
+# make sure each make target runs in the same shell session
+
+# use bash strict mode
+# (pipefail makes sure that a series of commands is treated as one command, i.e. if one fails, the whole series is marked as failed)
+.SHELLFLAGS := -u -o pipefail -ce
+# display a warning if variables are used but not defined
 MAKEFLAGS += --warn-undefined-variables
+# remove some "magic make behavior"
 MAKEFLAGS += --no-builtin-rules
 
 DOCKER_COMPOSE_DIR=./.docker
 DOCKER_COMPOSE_FILE=$(DOCKER_COMPOSE_DIR)/docker-compose.yml
 DEFAULT_CONTAINER=workspace
-DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE) --project-directory $(DOCKER_COMPOSE_DIR)
+DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE) --project-directory $(DOCKER_COMPOSE_DIR) --env-file $(DOCKER_COMPOSE_DIR)/.env
 RUN_IN_DOCKER_USER=www-data
 RUN_IN_DOCKER_CONTAINER=workspace
 
@@ -39,13 +55,15 @@ endif
 DEFAULT_GOAL := help
 help:
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-27s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+	echo $(FOO)
+	echo $(FOO_BAR)
 
 ##@ [Docker] Build / Infrastructure
 .docker/.env:
 	cp $(DOCKER_COMPOSE_DIR)/.env.example $(DOCKER_COMPOSE_DIR)/.env
-	sed -i s/APP_USER_ID=.*/APP_USER_ID=$$UID/g $(DOCKER_COMPOSE_DIR)/.env
-	sed -i s/APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/g $(DOCKER_COMPOSE_DIR)/.env
-	sed -i s/WORKSPACE_SSH_PASSWORD=.*/WORKSPACE_SSH_PASSWORD=$$RANDOM$$RANDOM/g $(DOCKER_COMPOSE_DIR)/.env
+	sed -i $(SED_FIX) "s/APP_USER_ID=.*/APP_USER_ID=$$UID/g" $(DOCKER_COMPOSE_DIR)/.env
+	sed -i $(SED_FIX) "s/APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/g" $(DOCKER_COMPOSE_DIR)/.env
+	sed -i $(SED_FIX) "s/WORKSPACE_SSH_PASSWORD=.*/WORKSPACE_SSH_PASSWORD=$$RANDOM$$RANDOM/g" $(DOCKER_COMPOSE_DIR)/.env
 
 .PHONY: docker-clean
 docker-clean: ## Remove the .env file for docker
@@ -105,7 +123,7 @@ init: .env ## Make sure the .env file exists for the application
 build: composer-install ## Build the application and install dependencies
 
 .PHONY: setup
-setup: clean init build ## Setup the application
+setup: clean init build migrate ## Setup the application
 
 .PHONY: composer
 composer: ## Run composer and provide the command via ARGS="command --options"
@@ -114,6 +132,10 @@ composer: ## Run composer and provide the command via ARGS="command --options"
 .PHONY: artisan-verify
 artisan-verify: ## Verify that the artisan commands can be run
 	$(RUN_IN_DOCKER) php artisan verify
+
+.PHONY: migrate
+migrate: ## Run the DB migrations
+	$(RUN_IN_DOCKER) php artisan migrate
 
 .PHONY: composer-install
 composer-install: ## Run composer install
