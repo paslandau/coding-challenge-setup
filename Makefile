@@ -55,10 +55,15 @@ endif
 DEFAULT_GOAL := help
 help:
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-27s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
-	echo $(FOO)
-	echo $(FOO_BAR)
 
-##@ [Docker] Build / Infrastructure
+##@ [Setup]
+.PHONY: docker-setup
+docker-setup: docker-clean docker-init docker-build ## Setup the docker infrastructure => First command to run on a new project
+
+.PHONY: setup
+setup: clean init build migrate ## Setup the application => Second command to run on a new project
+
+##@ [Infrastructure]
 .docker/.env:
 	cp $(DOCKER_COMPOSE_DIR)/.env.example $(DOCKER_COMPOSE_DIR)/.env
 	sed -i $(SED_FIX) "s/APP_USER_ID=.*/APP_USER_ID=$$UID/g" $(DOCKER_COMPOSE_DIR)/.env
@@ -82,9 +87,6 @@ docker-build-from-scratch: docker-init ## Build all docker images from scratch, 
 docker-build: docker-init ## Build all docker images. Build a specific image by providing the service name via: make docker-build CONTAINER=<service>
 	$(DOCKER_COMPOSE) build --parallel $(CONTAINER) && \
 	$(DOCKER_COMPOSE) up -d --force-recreate $(CONTAINER)
-
-.PHONY: docker-setup
-docker-setup: docker-clean docker-init docker-build ## Setup the docker infrastructure
 
 .PHONY: docker-test
 docker-test: docker-init docker-up ## Run the infrastructure tests for the docker setup
@@ -121,9 +123,6 @@ init: .env ## Make sure the .env file exists for the application
 
 .PHONY: build
 build: composer-install ## Build the application and install dependencies
-
-.PHONY: setup
-setup: clean init build migrate ## Setup the application
 
 .PHONY: composer
 composer: ## Run composer and provide the command via ARGS="command --options"

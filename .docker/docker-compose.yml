@@ -21,7 +21,7 @@ services:
         - APP_GROUP_ID=${APP_GROUP_ID}
         - APP_USER=${APP_USER:-www-data}
         - APP_USER_ID=${APP_USER_ID}
-        - TARGET_PHP_VERSION=${PHP_VERSION:-8.0}
+        - TARGET_PHP_VERSION=${PHP_VERSION:-8.1}
         - TZ=${TIMEZONE}
         - WORKSPACE_SSH_PASSWORD=${WORKSPACE_SSH_PASSWORD}
     volumes:
