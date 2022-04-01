@@ -58,9 +58,7 @@ Check upfront if already installed via:
 $ make --version
 GNU Make 4.2.1
 ````
-
--
-Windows: [Setup instructions for MinGW](https://www.pascallandau.com/blog/structuring-the-docker-setup-for-php-projects/#install-make-on-windows-mingw)
+- Windows: [Setup instructions for MinGW](https://www.pascallandau.com/blog/structuring-the-docker-setup-for-php-projects/#install-make-on-windows-mingw)
 - Linux: `sudo apt-get install make`
 - Mac: `brew install make`
 
@@ -75,6 +73,22 @@ make docker-setup
 
 make docker-up
 ```
+
+**Note** If you encounter any errors related to user ids, you might have run into a rare edge case
+of the 
+[Docker and the host filesystem owner matching problem](https://www.joyfulbikeshedding.com/blog/2021-03-15-docker-and-the-host-filesystem-owner-matching-problem.html).
+
+In this case, please modify the `APP_USER_ID` and `APP_GROUP_ID` in the `.docker/.env` file 
+manually:
+
+- for Linux users, the values should match the user- and group id of your 
+  host system
+- for Docker for Desktop users the values "don't really matter" as long as they don't 
+  conflict with already existing user- and group ids in the container: everything > 1000 should 
+  work here
+- if you are a Linux user AND the id's are conflicting you would have to look into 
+  [id remapping](https://docs.docker.com/engine/security/userns-remap/) - though I have never 
+  encountered this problem so far.
 
 Please verify that docker is running successfully via `docker ps`
 
@@ -179,5 +193,4 @@ Please
 
 **Note**: If you created a private repository, please add the
 user [paslandau](https://github.com/paslandau) as a
-[collaborator](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository)
-.
+[collaborator](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository).
