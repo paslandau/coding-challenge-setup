@@ -30,26 +30,23 @@ DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE) --project-directory $(DO
 RUN_IN_DOCKER_USER=www-data
 RUN_IN_DOCKER_CONTAINER=workspace
 
-ifndef CONTAINER
-	ARGS :=
-endif
+# Enable buildkit for docker and docker-compose by default for every environment.
+# For specific environments (e.g. MacBook with Apple Silicon M1 CPU) it should be turned off to work stable
+# - this can be done in the .make/.env file
+COMPOSE_DOCKER_CLI_BUILD?=1
+DOCKER_BUILDKIT?=1
 
-ifndef CONTAINER
-	CONTAINER :=
-endif
+export COMPOSE_DOCKER_CLI_BUILD
+export DOCKER_BUILDKIT
 
-ifndef NO_BUILDKIT
-	DOCKER_COMPOSE :=DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 $(DOCKER_COMPOSE)
-endif
+ARGS?=
+CONTAINER?=
 
 # if the file /.dockerenv does not exist we are NOT inside a docker container
 # so we must prefix any command to be executed inside the container
 RUN_IN_DOCKER :=
 ifeq ("$(wildcard /.dockerenv)","")
 	RUN_IN_DOCKER := @$(DOCKER_COMPOSE) exec -T --user $(RUN_IN_DOCKER_USER) $(RUN_IN_DOCKER_CONTAINER)
-endif
-
-ifndef NO_BUILDKIT
 endif
 
 DEFAULT_GOAL := help
@@ -68,7 +65,6 @@ setup: clean init build migrate ## Setup the application => Second command to ru
 	cp $(DOCKER_COMPOSE_DIR)/.env.example $(DOCKER_COMPOSE_DIR)/.env
 	sed -i $(SED_FIX) "s/APP_USER_ID=.*/APP_USER_ID=$$UID/g" $(DOCKER_COMPOSE_DIR)/.env
 	sed -i $(SED_FIX) "s/APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/g" $(DOCKER_COMPOSE_DIR)/.env
-	sed -i $(SED_FIX) "s/WORKSPACE_SSH_PASSWORD=.*/WORKSPACE_SSH_PASSWORD=$$RANDOM$$RANDOM/g" $(DOCKER_COMPOSE_DIR)/.env
 
 .PHONY: docker-clean
 docker-clean: ## Remove the .env file for docker
@@ -77,16 +73,9 @@ docker-clean: ## Remove the .env file for docker
 .PHONY: docker-init
 docker-init: .docker/.env ## Make sure the .env file exists for docker
 
-.PHONY: docker-build-from-scratch
-docker-build-from-scratch: docker-init ## Build all docker images from scratch, without cache etc. Build a specific image by providing the service name via: make docker-build CONTAINER=<service>
-	$(DOCKER_COMPOSE) rm -fs $(CONTAINER) && \
-	$(DOCKER_COMPOSE) build --pull --no-cache --parallel $(CONTAINER) && \
-	$(DOCKER_COMPOSE) up -d --force-recreate $(CONTAINER)
-
 .PHONY: docker-build
 docker-build: docker-init ## Build all docker images. Build a specific image by providing the service name via: make docker-build CONTAINER=<service>
-	$(DOCKER_COMPOSE) build --parallel $(CONTAINER) && \
-	$(DOCKER_COMPOSE) up -d --force-recreate $(CONTAINER)
+	$(DOCKER_COMPOSE) build $(CONTAINER)
 
 .PHONY: docker-test
 docker-test: docker-init docker-up ## Run the infrastructure tests for the docker setup
