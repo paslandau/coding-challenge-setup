@@ -20,10 +20,10 @@ jobs:
         run: sleep 30
 
       - name: (debug) docker mysql logs
-        run: docker logs coding-challenge_mysql_1
+        run: docker logs coding-challenge-mysql-1
 
       - name: (debug) docker mysql schema info
-        run: docker exec coding-challenge_mysql_1 mysql -u root -proot -e "SHOW databases;" -h 127.0.0.1
+        run: docker exec coding-challenge-mysql-1 mysql -u root -proot -e "SHOW databases;" -h 127.0.0.1
 
       - name: application setup
         run: make setup

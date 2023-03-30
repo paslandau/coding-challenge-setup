@@ -26,11 +26,11 @@ MAKEFLAGS += --no-builtin-rules
 DOCKER_COMPOSE_DIR=./.docker
 DOCKER_COMPOSE_FILE=$(DOCKER_COMPOSE_DIR)/docker-compose.yml
 DEFAULT_CONTAINER=workspace
-DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE) --project-directory $(DOCKER_COMPOSE_DIR) --env-file $(DOCKER_COMPOSE_DIR)/.env
+DOCKER_COMPOSE=docker compose -f $(DOCKER_COMPOSE_FILE) --project-directory $(DOCKER_COMPOSE_DIR) --env-file $(DOCKER_COMPOSE_DIR)/.env
 RUN_IN_DOCKER_USER=www-data
 RUN_IN_DOCKER_CONTAINER=workspace
 
-# Enable buildkit for docker and docker-compose by default for every environment.
+# Enable buildkit for docker and docker compose by default for every environment.
 # For specific environments (e.g. MacBook with Apple Silicon M1 CPU) it should be turned off to work stable
 # - this can be done in the .make/.env file
 COMPOSE_DOCKER_CLI_BUILD?=1
@@ -94,7 +94,7 @@ docker-down: docker-init ## Stop all docker containers. To only stop one contain
 	$(DOCKER_COMPOSE) down $(CONTAINER)
 
 .PHONY: docker-config
-docker-config: docker-init ## Show the docker-compose config with resolved .env values
+docker-config: docker-init ## Show the docker compose config with resolved .env values
 	$(DOCKER_COMPOSE) config
 
 ##@ [Application]
